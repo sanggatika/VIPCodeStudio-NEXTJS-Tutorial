@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { retrieveData } from '@/libs/firebase/service';
+import { retrieveData, retrieveDataByID } from '@/libs/firebase/service';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
@@ -33,8 +33,17 @@ export default async function handler(
     //         size: 'L',
     //     }
     // ];
+    
+    // onsole.log(req.query.product);
 
-    const data = await retrieveData("products");
+    if(req.query.product![1])
+    {
+      const data = await retrieveDataByID("products", req.query.product![1]);
+      res.status(200).json({ status: true, status_code:200, data });
+    }else{
+      const data = await retrieveData("products");
+      res.status(200).json({ status: true, status_code:200, data });
+    }    
 
-    res.status(200).json({ status: true, status_code:200, data })
+    
 }
