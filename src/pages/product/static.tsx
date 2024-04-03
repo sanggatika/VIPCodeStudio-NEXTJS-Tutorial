@@ -1,7 +1,7 @@
 import ProductView from "@/views/Product";
 import { ProductType } from "@/types/product.type";
 
-const ServerProductPage = (props:{products:ProductType[]}) => {
+const StaticProductPage = (props:{products:ProductType[]}) => {
     const { products } = props
 
     return (
@@ -11,10 +11,9 @@ const ServerProductPage = (props:{products:ProductType[]}) => {
     );
 }
 
-export default ServerProductPage;
+export default StaticProductPage;
 
-// Dipanggil setiap melakukan request
-export async function getServerSideProps() {
+export async function getStaticProps() {
     // fetch data
     const res = await fetch("http://localhost:3000/api/product");
     const response = await res.json();
